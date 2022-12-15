@@ -1,6 +1,7 @@
 # custom ignores
 .idea
-
+target
+src/test
 
 # Compiled class file
 *.class
