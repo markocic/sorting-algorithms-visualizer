@@ -155,4 +155,9 @@ public class SortingPanel extends JPanel {
         this.millisecondsDelay = millisecondsDelay;
         repaint();
     }
+
+    public void highlightNumber(int i, Color color) {
+        colors.set(i, color);
+        showUpdate();
+    }
 }
