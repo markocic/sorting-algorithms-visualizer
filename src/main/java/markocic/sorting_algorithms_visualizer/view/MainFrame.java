@@ -46,4 +46,12 @@ public class MainFrame extends JFrame {
         return instance;
     }
 
+    public Sort getCurrentSort() {
+        return currentSort;
+    }
+
+    public void setCurrentSort(Sort currentSort) {
+        this.currentSort = currentSort;
+        sortingPanel.repaint();
+    }
 }

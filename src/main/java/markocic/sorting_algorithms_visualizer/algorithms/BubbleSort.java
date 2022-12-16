@@ -6,6 +6,12 @@ import markocic.sorting_algorithms_visualizer.view.SortingPanel;
 import java.util.ArrayList;
 
 public class BubbleSort extends Sort {
+
+    @Override
+    public String getName() {
+        return "Bubble sort";
+    }
+
     @Override
     public void runSort() {
         SortingPanel sort = MainFrame.getInstance().getSortingPanel();

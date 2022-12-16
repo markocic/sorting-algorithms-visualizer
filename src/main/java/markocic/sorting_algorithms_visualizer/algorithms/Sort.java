@@ -14,4 +14,6 @@ public abstract class Sort {
     public void setArraySize(int size) {
         arraySize = size;
     }
+
+    public String getName() { return null; }
 }

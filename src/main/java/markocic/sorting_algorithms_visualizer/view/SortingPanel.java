@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -37,12 +38,22 @@ public class SortingPanel extends JPanel {
 
         int x = barWidth / 2;
         int y = getHeight();
-        System.out.println(y);
         for (int i = 0; i < array.size(); i++) {
             g2.setPaint(colors.get(i));
             g2.drawLine(x, y, x, y - barHeight * array.get(i));
             x += barWidth;
         }
+
+        drawInfoPanel(g2);
+    }
+
+    private void drawInfoPanel(Graphics2D g2) {
+        Rectangle2D rectangle2D = new Rectangle2D.Double(20, 20, 300, 100);
+        g2.setColor(new Color(51, 51, 51, 80));
+        g2.fill(rectangle2D);
+        g2.setColor(Color.WHITE);
+        g2.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
+        g2.drawString("Sorting algorithm: " + MainFrame.getInstance().getCurrentSort().getName(), 35, 40);
     }
 
     public void initializeArray() {
@@ -91,6 +102,20 @@ public class SortingPanel extends JPanel {
 
     public void resetColors() {
         Collections.fill(colors, Color.WHITE);
+    }
+
+    /*
+    * doesn't actually do anything, just for the satisfying ending
+     */
+    public void checkSorted() {
+        for (int i = 0; i < array.size(); i++) {
+            System.out.println("here");
+            colors.set(i, Color.RED);
+            showUpdate();
+            resetColors();
+        }
+
+        showUpdate();
     }
 
     public void showUpdate() {

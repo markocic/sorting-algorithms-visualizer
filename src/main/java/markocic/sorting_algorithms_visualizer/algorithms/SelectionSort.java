@@ -6,6 +6,11 @@ import java.util.ArrayList;
 
 public class SelectionSort extends Sort {
     @Override
+    public String getName() {
+        return "Selection sort";
+    }
+
+    @Override
     public void runSort() {
         for (int i = 0; i < arraySize - 1; i++) {
             int minIndex = i;

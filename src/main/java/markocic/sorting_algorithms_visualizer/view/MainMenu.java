@@ -56,7 +56,7 @@ public class MainMenu extends JPanel {
                     @Override
                     protected Void doInBackground() {
                         MainFrame.getInstance().getCurrentSort().runSort();
-                        MainFrame.getInstance().getSortingPanel().resetColors();
+                        MainFrame.getInstance().getSortingPanel().checkSorted();
                         return null;
                     }
                 };
