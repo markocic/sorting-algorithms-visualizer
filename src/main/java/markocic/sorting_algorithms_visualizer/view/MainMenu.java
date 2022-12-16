@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import markocic.sorting_algorithms_visualizer.algorithms.BubbleSort;
 import markocic.sorting_algorithms_visualizer.algorithms.InsertionSort;
+import markocic.sorting_algorithms_visualizer.algorithms.SelectionSort;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,7 @@ public class MainMenu extends JPanel {
 
     private JButton startSort;
     private JButton bubbleSort;
+    private JButton selectionSort;
     private JButton insertionSort;
     private JButton shuffle;
     public MainMenu() {
@@ -24,18 +26,29 @@ public class MainMenu extends JPanel {
         setLayout(flowLayout);
         startSort = new JButton("Sort");
         bubbleSort = new JButton("Bubble sort");
+        selectionSort = new JButton("Selection sort");
         insertionSort = new JButton("Insertion sort");
-        shuffle = new JButton("Reset");
+        shuffle = new JButton("Shuffle");
 
         add(startSort);
         add(bubbleSort);
+        add(selectionSort);
         add(insertionSort);
         add(shuffle);
 
         startSort.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainFrame.getInstance().getCurrentSort().runSort();
+                SwingWorker<Void, Void> swingWorker = new SwingWorker<Void, Void>() {
+                    @Override
+                    protected Void doInBackground() {
+                        MainFrame.getInstance().getCurrentSort().runSort();
+                        MainFrame.getInstance().getSortingPanel().resetColors();
+                        return null;
+                    }
+                };
+
+                swingWorker.execute();
             }
         });
 
@@ -46,6 +59,12 @@ public class MainMenu extends JPanel {
             }
         });
 
+        selectionSort.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainFrame.getInstance().setCurrentSort(new SelectionSort());
+            }
+        });
         insertionSort.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

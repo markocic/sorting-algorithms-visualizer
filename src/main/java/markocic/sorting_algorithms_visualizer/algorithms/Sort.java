@@ -1,13 +1,17 @@
 package markocic.sorting_algorithms_visualizer.algorithms;
 
-import markocic.sorting_algorithms_visualizer.Main;
-import markocic.sorting_algorithms_visualizer.view.MainFrame;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+@Getter
+@Setter
 public abstract class Sort {
+    public static int arraySize = 0;
     public void runSort() {
         System.out.println("default sort");
+    }
+
+    public void setArraySize(int size) {
+        arraySize = size;
     }
 }

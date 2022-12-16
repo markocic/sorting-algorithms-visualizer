@@ -1,5 +1,6 @@
 package markocic.sorting_algorithms_visualizer.view;
 
+import com.sun.tools.javac.Main;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,6 +50,7 @@ public class SortingPanel extends JPanel {
             array.add(i);
         }
         repaint();
+        MainFrame.getInstance().getCurrentSort().setArraySize(array.size());
     }
 
     public void initializeColors() {
@@ -83,10 +85,10 @@ public class SortingPanel extends JPanel {
             swapNumbers(i, swapIndex);
             resetColors();
         }
-        
+        updateUI();
     }
 
-    private void resetColors() {
+    public void resetColors() {
         for (int i = 0; i < colors.size(); i++) {
             colors.set(i, Color.WHITE);
         }
