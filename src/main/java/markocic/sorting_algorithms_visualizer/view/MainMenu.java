@@ -55,7 +55,7 @@ public class MainMenu extends JPanel {
                 SwingWorker<Void, Void> swingWorker = new SwingWorker<Void, Void>() {
                     @Override
                     protected Void doInBackground() {
-                        MainFrame.getInstance().getCurrentSort().runSort();
+                        MainFrame.getInstance().getSortingPanel().getCurrentSort().runSort();
                         MainFrame.getInstance().getSortingPanel().checkSorted();
                         return null;
                     }
@@ -68,20 +68,20 @@ public class MainMenu extends JPanel {
         bubbleSort.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainFrame.getInstance().setCurrentSort(new BubbleSort());
+                MainFrame.getInstance().getSortingPanel().setCurrentSort(new BubbleSort());
             }
         });
 
         selectionSort.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainFrame.getInstance().setCurrentSort(new SelectionSort());
+                MainFrame.getInstance().getSortingPanel().setCurrentSort(new SelectionSort());
             }
         });
         insertionSort.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainFrame.getInstance().setCurrentSort(new InsertionSort());
+                MainFrame.getInstance().getSortingPanel().setCurrentSort(new InsertionSort());
             }
         });
 

@@ -20,7 +20,7 @@ public class SelectionSort extends Sort {
                     minIndex = j;
                 }
             }
-            MainFrame.getInstance().getSortingPanel().swapNumbers(i, minIndex);
+            MainFrame.getInstance().getSortingPanel().swapNumbers(i, minIndex, true);
             MainFrame.getInstance().getSortingPanel().resetColors();
         }
     }

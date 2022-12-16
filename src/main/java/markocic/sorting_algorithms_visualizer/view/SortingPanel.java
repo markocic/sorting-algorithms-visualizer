@@ -3,6 +3,8 @@ package markocic.sorting_algorithms_visualizer.view;
 import com.sun.tools.javac.Main;
 import lombok.Getter;
 import lombok.Setter;
+import markocic.sorting_algorithms_visualizer.algorithms.BubbleSort;
+import markocic.sorting_algorithms_visualizer.algorithms.Sort;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +22,9 @@ public class SortingPanel extends JPanel {
     private final int barWidth = 4;
     private final int barHeight = 2;
     private int millisecondsDelay = 10;
-    private int i;
+    private int numChanges = 0;
+    private Sort currentSort = new BubbleSort();
+
     private final Random random = new Random();
 
     public SortingPanel() {
@@ -48,12 +52,19 @@ public class SortingPanel extends JPanel {
     }
 
     private void drawInfoPanel(Graphics2D g2) {
+        // this is drawing a "shadow" of the rectangle
+        g2.setColor(new Color(10, 10, 10, 100));
+        g2.fill(new Rectangle2D.Double(25, 25, 300, 100));
+
         Rectangle2D rectangle2D = new Rectangle2D.Double(20, 20, 300, 100);
-        g2.setColor(new Color(51, 51, 51, 80));
+        g2.setColor(new Color(51, 51, 51));
         g2.fill(rectangle2D);
+
         g2.setColor(Color.WHITE);
         g2.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
-        g2.drawString("Sorting algorithm: " + MainFrame.getInstance().getCurrentSort().getName(), 35, 40);
+        g2.drawString("Sorting algorithm: " + currentSort.getName(), 35, 40);
+        g2.drawString("Changes to array: " + numChanges, 35, 60);
+        g2.drawString("Current delay: " + millisecondsDelay, 35, 80);
     }
 
     public void initializeArray() {
@@ -62,7 +73,7 @@ public class SortingPanel extends JPanel {
             array.add(i);
         }
         repaint();
-        MainFrame.getInstance().getCurrentSort().setArraySize(array.size());
+        currentSort.setArraySize(array.size());
     }
 
     public void initializeColors() {
@@ -72,13 +83,15 @@ public class SortingPanel extends JPanel {
         }
     }
 
-    public void swapNumbers(int i, int j)  {
+    public void swapNumbers(int i, int j, boolean change)  {
         colors.set(i, Color.GREEN);
         colors.set(j, Color.RED);
 
         int temp = array.get(i);
         array.set(i, array.get(j));
         array.set(j, temp);
+
+        if (change) numChanges++;
 
         showUpdate();
     }
@@ -94,7 +107,7 @@ public class SortingPanel extends JPanel {
 
         for (int i = 0; i < array.size() - 1; i++) {
             int swapIndex = random.nextInt(array.size() - 1);
-            swapNumbers(i, swapIndex);
+            swapNumbers(i, swapIndex, false);
             resetColors();
         }
         updateUI();
@@ -125,5 +138,21 @@ public class SortingPanel extends JPanel {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public Sort getCurrentSort() {
+        return currentSort;
+    }
+
+    public void setCurrentSort(Sort currentSort) {
+        this.currentSort = currentSort;
+        numChanges = 0;
+        repaint();
+    }
+
+    public void setMillisecondsDelay(int millisecondsDelay) {
+        this.millisecondsDelay = millisecondsDelay;
+        repaint();
     }
 }

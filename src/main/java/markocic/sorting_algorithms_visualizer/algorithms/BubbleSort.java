@@ -19,7 +19,7 @@ public class BubbleSort extends Sort {
             for (int j = 0; j < arraySize - i - 1; j++) {
                 ArrayList<Integer> array = sort.getArray();
                 if (array.get(j) > array.get(j + 1)) {
-                    sort.swapNumbers(j, j+1);
+                    sort.swapNumbers(j, j+1, true);
                     sort.resetColors();
 
                 }
