@@ -12,6 +12,10 @@ import java.awt.*;
 @Setter
 public class MainFrame extends JFrame {
     private static MainFrame instance = null;
+    private final int WIDTH = 1280;
+    private final int HEIGHT = 720;
+    private MainMenu menu;
+    private SortingPanel sortingPanel;
     private Sort currentSort = new BubbleSort();
 
     private MainFrame() {}
@@ -20,13 +24,13 @@ public class MainFrame extends JFrame {
         setTitle("Sorting Algorithms Visualizer");
         getContentPane().setBackground(Color.DARK_GRAY);
         getContentPane().setForeground(Color.WHITE);
-        setMinimumSize(new Dimension(1280, 720));
+        setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         getContentPane().setLayout(new BorderLayout());
 
-        MainMenu menu = new MainMenu();
-        SortingPanel sortingPanel = new SortingPanel();
+        menu = new MainMenu();
+        sortingPanel = new SortingPanel();
 
         getContentPane().add(menu, BorderLayout.NORTH);
         getContentPane().add(sortingPanel, BorderLayout.CENTER);

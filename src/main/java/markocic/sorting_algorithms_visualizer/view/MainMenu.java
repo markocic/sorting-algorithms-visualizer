@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 
 @Getter
 @Setter
@@ -56,7 +57,7 @@ public class MainMenu extends JPanel {
         reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainFrame.getInstance().getCurrentSort().shuffle();
+                MainFrame.getInstance().getSortingPanel().shuffle();
             }
         });
     }
