@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 @Getter
@@ -35,7 +36,7 @@ public class SortingPanel extends JPanel {
         g2.setStroke(new BasicStroke(barWidth));
 
         int x = barWidth / 2;
-        int y = MainFrame.getInstance().getHEIGHT() - MainFrame.getInstance().getMenu().getHeight() - 34;
+        int y = getHeight();
         System.out.println(y);
         for (int i = 0; i < array.size(); i++) {
             g2.setPaint(colors.get(i));
@@ -68,14 +69,14 @@ public class SortingPanel extends JPanel {
         array.set(i, array.get(j));
         array.set(j, temp);
 
-        showUpdate(millisecondsDelay);
+        showUpdate();
     }
     public void swapColors(int i, int j)  {
         Color temp = colors.get(i);
         colors.set(i, colors.get(j));
         colors.set(j, temp);
 
-        showUpdate(millisecondsDelay);
+        showUpdate();
     }
 
     public void shuffle() {
@@ -89,15 +90,13 @@ public class SortingPanel extends JPanel {
     }
 
     public void resetColors() {
-        for (int i = 0; i < colors.size(); i++) {
-            colors.set(i, Color.WHITE);
-        }
+        Collections.fill(colors, Color.WHITE);
     }
 
-    public void showUpdate(int delay) {
+    public void showUpdate() {
         updateUI();
         try {
-            Thread.sleep(delay);
+            Thread.sleep(millisecondsDelay);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
