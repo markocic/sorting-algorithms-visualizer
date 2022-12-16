@@ -64,7 +64,7 @@ public class SortingPanel extends JPanel {
         g2.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
         g2.drawString("Sorting algorithm: " + currentSort.getName(), 35, 40);
         g2.drawString("Changes to array: " + numChanges, 35, 60);
-        g2.drawString("Current delay: " + millisecondsDelay, 35, 80);
+        g2.drawString("Current delay: " + millisecondsDelay + "ms", 35, 80);
     }
 
     public void initializeArray() {
@@ -121,20 +121,32 @@ public class SortingPanel extends JPanel {
     * doesn't actually do anything, just for the satisfying ending
      */
     public void checkSorted() {
-        for (int i = 0; i < array.size(); i++) {
-            System.out.println("here");
-            colors.set(i, Color.RED);
-            showUpdate();
-            resetColors();
-        }
+        for (int i = 1; i < array.size(); i++) {
+            int j = i - 1;
+            colors.set(i, Color.GREEN);
+            colors.set(j, Color.RED);
 
-        showUpdate();
+            showUpdate(1);
+
+            colors.set(j, Color.WHITE);
+        }
+        resetColors();
+        showUpdate(1);
     }
 
     public void showUpdate() {
         updateUI();
         try {
             Thread.sleep(millisecondsDelay);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void showUpdate(int delay) {
+        updateUI();
+        try {
+            Thread.sleep(delay);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
