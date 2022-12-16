@@ -2,6 +2,8 @@ package markocic.sorting_algorithms_visualizer.view;
 
 import lombok.Getter;
 import lombok.Setter;
+import markocic.sorting_algorithms_visualizer.algorithms.BubbleSort;
+import markocic.sorting_algorithms_visualizer.algorithms.Sort;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +12,7 @@ import java.awt.*;
 @Setter
 public class MainFrame extends JFrame {
     private static MainFrame instance = null;
-    private JLabel lblText;
+    private Sort currentSort = new BubbleSort();
 
     private MainFrame() {}
 
@@ -21,9 +23,13 @@ public class MainFrame extends JFrame {
         setMinimumSize(new Dimension(1280, 720));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        lblText = new JLabel("Test", SwingConstants.CENTER);
-        lblText.setForeground(Color.WHITE);
-        getContentPane().add(lblText, SwingConstants.CENTER);
+        getContentPane().setLayout(new BorderLayout());
+
+        MainMenu menu = new MainMenu();
+        SortingPanel sortingPanel = new SortingPanel();
+
+        getContentPane().add(menu, BorderLayout.NORTH);
+        getContentPane().add(sortingPanel, BorderLayout.CENTER);
 
         pack();
     }
