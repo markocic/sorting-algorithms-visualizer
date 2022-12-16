@@ -53,51 +53,28 @@ public class SortingPanel extends JPanel {
         repaint();
     }
 
-    public void swap(int i, int j) throws InterruptedException {
+    public void swap(int i, int j)  {
         int temp = array.get(i);
         array.set(i, array.get(j));
         array.set(j, temp);
 
-
+        showUpdate(10);
     }
 
     public void shuffle() {
 
-
-        new TimerFor(10, 0, array.size() - 1, i -> {
-            try {
-                swap(i, random.nextInt(array.size() - 1));
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            updateUI();
-            return false;
-        });
+        for (int i = 0; i < array.size() - 1; i++) {
+            swap(i, random.nextInt(array.size() - 1));
+        }
 
     }
 
-    public class TimerFor implements ActionListener {
-        private final Timer t;
-        private final int upper;
-        private final Function<Integer, Boolean> body;
-        private int i;
-
-        public TimerFor(int delay, int lower, int upper, Function<Integer, Boolean> body) {
-            i = lower;
-            this.upper = upper;
-            this.body = body;
-            t = new Timer(delay, this);
-            t.setRepeats(true);
-            t.start();
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            if (i >= upper || body.apply(i)) {
-                t.stop();
-                return;
-            }
-            i++;
+    public void showUpdate(int delay) {
+        updateUI();
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }
