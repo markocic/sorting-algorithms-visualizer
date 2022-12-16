@@ -5,27 +5,25 @@ import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.function.Function;
 
 @Getter
 @Setter
 public class SortingPanel extends JPanel {
 
     private ArrayList<Integer> array;
+    private ArrayList<Color> colors;
     private final int barWidth = 4;
     private final int barHeight = 2;
-
+    private int millisecondsDelay = 10;
     private int i;
     private final Random random = new Random();
 
     public SortingPanel() {
         setBackground(Color.DARK_GRAY);
         initializeArray();
-
+        initializeColors();
     }
 
     @Override
@@ -33,14 +31,14 @@ public class SortingPanel extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        g2.setPaint(Color.WHITE);
         g2.setStroke(new BasicStroke(barWidth));
 
         int x = barWidth / 2;
         int y = MainFrame.getInstance().getHEIGHT() - MainFrame.getInstance().getMenu().getHeight() - 34;
         System.out.println(y);
-        for (Integer num : array) {
-            g2.drawLine(x, y, x, y - barHeight * num);
+        for (int i = 0; i < array.size(); i++) {
+            g2.setPaint(colors.get(i));
+            g2.drawLine(x, y, x, y - barHeight * array.get(i));
             x += barWidth;
         }
     }
@@ -53,20 +51,45 @@ public class SortingPanel extends JPanel {
         repaint();
     }
 
-    public void swap(int i, int j)  {
+    public void initializeColors() {
+        colors = new ArrayList<>();
+        for (int i = 0; i < array.size(); i++) {
+            colors.add(Color.WHITE);
+        }
+    }
+
+    public void swapNumbers(int i, int j)  {
+        colors.set(i, Color.GREEN);
+        colors.set(j, Color.RED);
+
         int temp = array.get(i);
         array.set(i, array.get(j));
         array.set(j, temp);
 
-        showUpdate(10);
+        showUpdate(millisecondsDelay);
+    }
+    public void swapColors(int i, int j)  {
+        Color temp = colors.get(i);
+        colors.set(i, colors.get(j));
+        colors.set(j, temp);
+
+        showUpdate(millisecondsDelay);
     }
 
     public void shuffle() {
 
         for (int i = 0; i < array.size() - 1; i++) {
-            swap(i, random.nextInt(array.size() - 1));
+            int swapIndex = random.nextInt(array.size() - 1);
+            swapNumbers(i, swapIndex);
+            resetColors();
         }
+        
+    }
 
+    private void resetColors() {
+        for (int i = 0; i < colors.size(); i++) {
+            colors.set(i, Color.WHITE);
+        }
     }
 
     public void showUpdate(int delay) {
