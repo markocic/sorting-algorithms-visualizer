@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import markocic.sorting_algorithms_visualizer.algorithms.BubbleSort;
 import markocic.sorting_algorithms_visualizer.algorithms.InsertionSort;
+import markocic.sorting_algorithms_visualizer.algorithms.MergeSort;
 import markocic.sorting_algorithms_visualizer.algorithms.SelectionSort;
 
 import javax.swing.*;
@@ -22,6 +23,7 @@ public class MainMenu extends JPanel {
     private JButton bubbleSort;
     private JButton selectionSort;
     private JButton insertionSort;
+    private JButton mergeSort;
     private JButton shuffle;
     public MainMenu() {
         setBackground(Color.DARK_GRAY);
@@ -33,6 +35,7 @@ public class MainMenu extends JPanel {
         bubbleSort = new JButton("Bubble sort");
         selectionSort = new JButton("Selection sort");
         insertionSort = new JButton("Insertion sort");
+        mergeSort = new JButton("Merge sort");
         shuffle = new JButton("Shuffle");
 
         add(msDelay);
@@ -40,6 +43,7 @@ public class MainMenu extends JPanel {
         add(bubbleSort);
         add(selectionSort);
         add(insertionSort);
+        add(mergeSort);
         add(shuffle);
 
         msDelay.addChangeListener(new ChangeListener() {
@@ -82,6 +86,13 @@ public class MainMenu extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MainFrame.getInstance().getSortingPanel().setCurrentSort(new InsertionSort());
+            }
+        });
+
+        mergeSort.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainFrame.getInstance().getSortingPanel().setCurrentSort(new MergeSort());
             }
         });
 
